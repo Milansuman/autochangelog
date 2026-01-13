@@ -37,6 +37,8 @@ def main():
         user_input = input(">>> Enter your query (or 'exit' to quit): ")
         if user_input.lower() == 'exit':
             break
+        elif len(user_input.strip()) == 0:
+            continue
 
         messages.append(HumanMessage(content=user_input))
         response = simple_agent.invoke({
