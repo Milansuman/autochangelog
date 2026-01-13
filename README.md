@@ -14,7 +14,7 @@ Install the dependencies
 pip install -r requirements.txt
 ```
 
-and run!
+set up the env based on .env.example and run!
 ```bash
 python3 src/agent.py
 ```
