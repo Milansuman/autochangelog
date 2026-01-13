@@ -6,8 +6,10 @@ from tools import get_releases, get_commits, get_user_repos, get_repo_tags, get_
 from langchain.messages import HumanMessage
 from rich.console import Console
 from rich.markdown import Markdown
+from observability import initialize_netra
 
 load_dotenv()
+initialize_netra()
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
