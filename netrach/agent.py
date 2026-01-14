@@ -3,7 +3,7 @@ import argparse
 from dotenv import load_dotenv
 from langchain_groq import ChatGroq
 from langchain.agents import create_agent
-from .tools import get_releases, get_commits, get_user_repos, get_repo_tags, get_repo_contributors, export_changelog, get_current_repo, get_current_user
+from .tools import *
 from langchain.messages import HumanMessage
 from rich.console import Console
 from rich.markdown import Markdown
@@ -28,6 +28,8 @@ GUIDELINES:
 - Do not include any information about the git commits, authors or commit SHAs in the changelog.
 - When saving the changelog, use the guidelines provided to generate the content to be put in the file.
 - Always save files with the .md file extension, even if not explicitly mentioned by the user.
+- When getting the changelog of a release, always use the commits between the previous release and the given release.
+- If you don't know which user a repo belongs to, get the current user first.
 
 EXAMPLE CHANGELOG:
 # Multi-Span Filters
@@ -47,7 +49,17 @@ llm = ChatGroq(
 
 simple_agent = create_agent(
     model=llm,
-    tools=[get_releases, get_commits, get_user_repos, get_repo_tags, get_repo_contributors, export_changelog, get_current_user, get_current_repo],
+    tools=[
+        get_releases, 
+        get_commits, 
+        get_user_repos, 
+        get_repo_tags, 
+        get_repo_contributors, 
+        export_changelog, 
+        get_current_user, 
+        get_current_repo,
+        get_commits_between_releases
+    ],
     system_prompt=BASE_SYSTEM_PROMPT,
 )
 

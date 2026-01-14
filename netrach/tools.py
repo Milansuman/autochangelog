@@ -65,6 +65,43 @@ def get_commits(owner: str, repo: str, per_page: int = 30) -> str:
         return "\n".join(result)
     except Exception as e:
         return f"Error fetching commits: {str(e)}"
+
+@tool
+@task
+def get_commits_between_releases(owner: str, repo: str, base: str, head: str) -> str:
+    """Get commits between two releases/deployments (tags, branches, or commit SHAs). 
+    
+    Args:
+        owner: Repository owner
+        repo: Repository name
+        base: The base reference (older release/tag/commit)
+        head: The head reference (newer release/tag/commit)
+    
+    Returns formatted list of commits with SHA, message, author, and date.
+    """
+    url = f"https://api.github.com/repos/{owner}/{repo}/compare/{base}...{head}"
+    
+    try:
+        response = requests.get(url, headers=HEADERS)
+        response.raise_for_status()
+        comparison = response.json()
+        
+        commits = comparison.get('commits', [])
+        
+        if not commits:
+            return f"No commits found between {base} and {head}."
+        
+        result = [f"Commits between {base} and {head} ({len(commits)} total):\n"]
+        for commit in commits:
+            sha = commit['sha'][:7]
+            message = commit['commit']['message'].split('\n')[0]
+            author = commit['commit']['author']['name']
+            date = commit['commit']['author']['date']
+            result.append(f"- {sha}: {message} (by {author} on {date})")
+        
+        return "\n".join(result)
+    except Exception as e:
+        return f"Error fetching commits between releases: {str(e)}"
   
 @tool
 @task
