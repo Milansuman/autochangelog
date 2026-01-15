@@ -8,6 +8,7 @@ from langchain.messages import HumanMessage
 from rich.console import Console
 from rich.markdown import Markdown
 from .observability import initialize_netra, initialize_netra_session, record_agent_thought_process
+from .git import get_current_repo
 
 load_dotenv()
 
@@ -75,7 +76,12 @@ def auto_generate_changelog(output_file: str = "CHANGELOG.md"):
     initialize_netra_session()
     
     # Create a query to generate changelog since last release
-    query = f"Generate a changelog for the current repository since the last release and save it to {output_file}"
+    query = f"Generate a changelog for the current repository since the last release and save it to {output_file}."
+
+    current_repo = get_current_repo()
+
+    if current_repo:
+        query += f" The repository is at {current_repo}."
     
     messages = [HumanMessage(content=query)]
     
