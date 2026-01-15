@@ -10,7 +10,6 @@ from rich.markdown import Markdown
 from .observability import initialize_netra, initialize_netra_session, record_agent_thought_process
 
 load_dotenv()
-initialize_netra()
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
@@ -72,6 +71,7 @@ def auto_generate_changelog(output_file: str = "CHANGELOG.md"):
     """Automatically generate a changelog since the last release."""
     print(f"Generating changelog since last release...")
     
+    initialize_netra()
     initialize_netra_session()
     
     # Create a query to generate changelog since last release
@@ -90,6 +90,7 @@ def auto_generate_changelog(output_file: str = "CHANGELOG.md"):
 
 def main():
     parser = argparse.ArgumentParser(
+        prog="netrach",
         description="GitHub Changelog Generator - Generate changelogs for GitHub repositories"
     )
     parser.add_argument(
@@ -105,7 +106,7 @@ def main():
     )
     
     args = parser.parse_args()
-    
+
     if args.auto:
         auto_generate_changelog(args.file)
         return
@@ -113,6 +114,7 @@ def main():
     # Interactive mode
     messages = []
 
+    initialize_netra()
     initialize_netra_session()
     while True:
         user_input = input(">>> Enter your query (or 'exit' to quit): ")
