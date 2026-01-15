@@ -6,7 +6,7 @@
 pip install git+https://github.com/Milansuman/netrach-agent.git
 ```
 
-## Usage setup
+## Usage
 
 Ensure the following environment variables are set:
 ```env
@@ -17,7 +17,13 @@ NETRA_OTLP_ENDPOINT=
 ```
 then run `netrach` to use the utility.
 
-## Setup Instructions
+```bash
+$ netrach # Starts the agent in interactive mode and maintains a chat log that ends when the session is exited
+$ netrach --auto # Automatically generates a CHANGELOG.md based on the commits for the latest release
+$ netrach --auto -f path/to/changelog.md # Asks the agent to save the changelog at the specify path
+```
+
+## Repo Setup 
 
 Clone the repo and create a python venv
 ```bash
