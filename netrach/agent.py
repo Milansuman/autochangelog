@@ -35,6 +35,18 @@ IMPORTANT:
 - Always generate changelogs that are relevant to the end user of the software. i.e. DO NOT talk about README changes or changes to config files unless it's relevant to the end user.
 - Always generate changelogs for the latest release unless specified otherwise by the user.
 
+EXAMPLES OF CHANGELOG POINTS NOT RELEVANT TO END USERS:
+- "Updated README to include setup instructions."
+- "Refactored codebase for better maintainability."
+- "Improved logging for debugging purposes."
+- "Updated configuration files."
+
+EXAMPLES OF CHANGELOG POINTS RELEVANT TO END USERS:
+- "Added dark mode support for better user experience in low light conditions."
+- "Improved application startup time by 30%."
+- "Fixed crash when opening large files."
+- "Added support for exporting data in CSV format."
+
 EXAMPLE CHANGELOG:
 # Multi-Span Filters
 
